@@ -30,21 +30,8 @@
 
 \keywords{Temporally Precise Spotting, Video Understanding, Spatial Temporal Event Spotting, Volleyball, Sport, Deep Learning}
 
-% \abstract{The abstract should summarize the contents of the paper and should contain at least 70 and at most 200 words. The text must be set to 9-point font size.}
-% \abstract{
-%   Precise event spotting is crucial for sports video analysis, where understanding both the timing and location of key actions is essential, especially in fast-paced games like volleyball. We introduce a new task: high-precision spatial-temporal event spotting in volleyball videos, focusing on detecting both when and where key events occur. To address this challenge, we develop a novel volleyball dataset with annotations for temporal and spatial event localization. Our multi-task deep learning model jointly predicts event timing and spatial coordinates, and we find that adding a spatial predictor improves temporal detection by ???\%, highlighting the synergy between spatial and temporal tasks. To the best of our knowledge, this is the first work to tackle this task, setting a strong baseline for future research in spatial-temporal event spotting.
-% }
-
-% \abstract{
-%   Understanding both when and where events occur is crucial for analyzing sports videos, especially in fast-paced games like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, targeting the challenge of localizing key events both temporally and spatially. To achieve this, we present a novel annotated volleyball dataset and propose a multi-task deep learning model. By integrating spatial predictions, our approach improves temporal event detection by 10\%, showing a strong interaction between spatial and temporal tasks. This is the first known work to address this task, establishing a baseline for future studies.
-% }
-
-% \abstract{
-%   Understanding the precise timing and location of events is critical for analyzing sports videos, especially in high-speed sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which focuses on detecting both the timing and location of key actions. To address this, we present the KOVO Event Dataset, consisting of 947 volleyball rally videos, 890,797 frames, and 5,935 key actions, annotated for both temporal and spatial localization. Our multi-task deep learning model jointly predicts event times and locations, and we find that incorporating spatial predictions improves temporal accuracy by 10\%. To the best of our knowledge, this is the first work to address this task, setting a strong baseline for future research in spatial-temporal event spotting.
-% }
-
 \abstract{
-  Understanding the precise timing and location of events is crucial for analyzing sports videos, especially in fast-paced sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which aims to detect both when and where key actions occur. To support this, we present the KOVO Volleyball Event Dataset, featuring 947 rally videos, 890,797 frames, and 5,935 events, annotated for both temporal and spatial localization. Our best model achieves a temporal mAP of 90.59, a spatial mAP of 77.94, and a combined mAP of 85.46 across various temporal and spatial thresholds. Notably, we find that incorporating spatial predictions enhances mAP by 10\%, underscoring the synergy between spatial and temporal analysis. To the best of our knowledge, this is the first work addressing this task, establishing a strong baseline for future research in spatial-temporal event spotting.
+  Understanding the precise timing and location of events is crucial for analyzing sports videos, especially in fast-paced sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which aims to detect both when and where key actions occur. To support this, we present the KOVO Volleyball Event Dataset, featuring 947 rally videos, and 5,935 events, annotated for both temporal and spatial localization. Our best model achieves a combined mAP of 85.46 across various temporal and spatial thresholds. Notably, we find that incorporating spatial predictions enhances temporal mAP by 5.89, underscoring the synergy between spatial and temporal analysis. To the best of our knowledge, this is the first work addressing this task, establishing a strong baseline for future research in spatial-temporal event spotting.
 }
 
 
@@ -53,15 +40,18 @@
 
 \section{\uppercase{Introduction}}
 \label{sec:introduction}
+% \section{Introduction}
+Video understanding has emerged as a cornerstone in computer vision, offering valuable insights into dynamic scenes for applications such as sports analytics, surveillance, and autonomous systems. Within this field, various tasks have been defined to interpret actions over time. \textit{Temporal Action Detection (TAD)} focuses on pinpointing time intervals where specific actions occur within untrimmed videos, while \textit{Temporal Action Segmentation (TAS)} aims to divide videos into continuous sequences of actions. Complementing these is the task of \textit{Action Spotting}, which zeroes in on identifying the precise frames that capture key events, requiring models to discern subtle temporal differences and visually similar frames \cite{spot22}.
 
-Your paper will be part of the conference proceedings
-therefore we ask that authors follow the guidelines explained in
-this example in order to achieve the highest quality possible
-\cite{Smith98}.
+Recent advancements in action spotting, such as \textit{T-DEED} \cite{teed23} and \textit{spot22} \cite{spot22}, have demonstrated the ability of models to achieve frame-level precision in fast-paced events by leveraging deep learning architectures. However, most of these efforts focus solely on detecting events in specific domains like figure skating and diving. While effective in their respective domains, they do not capture the unique challenges posed by team-based sports with rapid dynamics, such as volleyball.
 
-Be advised that papers in a technically unsuitable form will be
-returned for retyping. After returned the manuscript must be
-appropriately modified.
+Despite progress in action spotting, there is a gap in applying these techniques to sports like volleyball, where rapid play transitions occur within specific areas of the court. Addressing this requires a broader focus: \textit{high-precision spatial-temporal event spotting}, a task designed to detect both the exact timing and spatial location of key events. Unlike conventional action spotting, this task provides richer insights into player positioning and movement patterns, crucial for analyzing volleyball gameplay.
+
+In other sports, datasets like \textit{SoccerNet} have pushed the boundaries of action spotting through rich temporal and spatial annotations, significantly advancing model capabilities. Yet, no equivalent dataset exists for volleyball, a sport characterized by its rapid exchanges and the need for precise localization of actions. To fill this gap, we introduce the \textit{KOVO Event Dataset}, comprising 947 rally videos, 890,797 frames, and 5,935 annotated key actions. This dataset offers granular annotations for both temporal and spatial event localization, making it a valuable resource for developing models that capture the intricacies of volleyball.
+
+Our contributions are threefold. First, we introduce the new task of high-precision spatial-temporal event spotting, specifically tailored for the dynamics of volleyball. Second, we present the \textit{KOVO Event Dataset}, the first of its kind to include detailed temporal and spatial annotations for volleyball rallies. Third, we propose a multi-task deep learning model that jointly predicts event timing and spatial positions, leveraging this dual focus to achieve improved performance. Notably, incorporating spatial predictions into our model enhances temporal mAP by 5.89 points. Our best model achieves a temporal mAP of 90.59, a spatial mAP of 77.94, and a combined mAP of 85.46, providing a strong baseline for this new task. To the best of our knowledge, this work is the first to explore high-precision spatial-temporal event spotting in volleyball, setting the stage for future research in this area. The paper proceeds with a discussion of related work in Section 2, a detailed description of our approach in Section 3, the experimental setup in Section 4, results in Section 5, and conclusions in Section 6.
+
+
 
 \section{\uppercase{Related work}}
 
@@ -395,7 +385,7 @@ without numbering. To do so please use the following command:
 
 \bibliographystyle{apalike}
 {\small
-\bibliography{example}}
+\bibliography{cite}}
 
 
 \section*{\uppercase{Appendix}}
