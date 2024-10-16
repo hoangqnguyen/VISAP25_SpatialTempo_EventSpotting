@@ -58,9 +58,11 @@ Our contributions are threefold. First, we introduce the new task of high-precis
 \section{\uppercase{Related work}}
 
 \subsection{Video Classification}
+In video understanding, video classification focuses on predicting a single label for the entire video, unlike event spotting, which demands precise frame-level labeling. This difference leads to distinct challenges: video classification often benefits from sparse frame sampling \cite{tsn}, while event spotting requires dense sampling to capture rapid changes in events. Additionally, classification models frequently use techniques like global space-time pooling \cite{8578773} or temporal consensus \cite{zhou2018temporalrelationalreasoningvideos} to derive a video-level prediction, which contrasts with the need for maintaining high temporal resolution in event spotting.
 
+Drawing from insights provided by E2E-Spot, which demonstrated the advantages of end-to-end training without temporal pooling for frame-level precision, our approach adopts RegNet-Y \cite{radosavovic2020designingnetworkdesignspaces} combined with GSM \cite{9156729}. RegNet-Y, known for its efficient architecture, paired with GSM for adaptive temporal shifts, offers a robust solution for extracting spatial-temporal features. This combination proved particularly effective for our high-precision event spotting task in volleyball, enabling both temporal accuracy and spatial precision while keeping the process efficient.
 
-\subsection{Temporal Action Localization}
+\subsection{Group Activity Recognition}
 
 
 \subsection{Precise Action Spotting}
