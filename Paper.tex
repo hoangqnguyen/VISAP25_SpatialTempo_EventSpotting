@@ -1,3 +1,11 @@
+% TODO:
+%   [ ] Write Method
+%   [ ] Write Experiments
+%   [ ] Create Diagrams
+    %   [ ] Model Architecture
+
+
+
 \documentclass[a4paper,twoside]{article}
 
 \usepackage{epsfig}
@@ -97,6 +105,20 @@ Due to the large size of the dataset, we are unable to release the full-resoluti
 
 \section{\uppercase{PROPOSED METHOD}}
 \subsection{Problem Formulation}
+\textbf{Temporal Spatial Event Spotting (TSES)} aims to identify both the precise time and location of events within untrimmed videos. Given a video with \(N\) frames \(x_1, \ldots, x_N\) and a set of \(K\) event classes \(c_1, \ldots, c_K\), the goal is to predict a sparse set of frame indices where events occur, as well as the corresponding event class and spatial coordinates. Each prediction is represented as \((t, c_t, s_t)\), where \(t\) is the frame index, \(c_t\) is the predicted event class, and \(s_t\) is the spatial location of the event within that frame. A temporal prediction is considered correct if it falls within a small temporal tolerance \(\sigma_f\) frames of the labeled event and matches the ground-truth class. Similarly, spatial predictions are deemed correct if the distance between the predicted location \(s_t\) and the ground-truth event location is within a specified threshold \(\sigma_p\). For TSES, these tolerances are kept small, requiring precise frame-level accuracy, and it assumes that videos are captured with sufficiently high frame rates.
+
+To perform well on this task, several key requirements must be met:
+\begin{itemize}
+    \item \textbf{Local Spatial-Temporal Features}: The model should capture subtle visual changes and movements across neighboring frames, essential for distinguishing between similar-looking moments.
+    \item \textbf{Long-Term Temporal Context}: A broader temporal window allows the model to understand events in context, such as how player positions or actions evolve before and after a critical moment.
+    \item \textbf{Dense Per-Frame Predictions}: For each frame \(x_t\), the model produces a prediction \((\hat{y}_t, \hat{s}_t)\), where \(\hat{y}_t \in \mathbb{R}^K\) is a one-hot vector representing the predicted event class probabilities, and \(\hat{s}_t \in \mathbb{R}^2\) represents the \(x, y\) coordinates of the event within the frame. This ensures frame-level precision for each event.
+\end{itemize}
+
+These requirements call for a robust and end-to-end trainable architecture capable of leveraging both temporal and spatial information. Our approach utilizes a sequence model that integrates local spatial-temporal features.
+
+
+
+
 \subsection{Model Architecture}
 \subsubsection{Feature Extractor}
 \subsubsection{Temporal Event Detection}
