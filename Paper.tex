@@ -31,7 +31,7 @@
 \keywords{Temporally Precise Spotting, Video Understanding, Spatial Temporal Event Spotting, Volleyball, Sport, Deep Learning}
 
 \abstract{
-  Understanding the precise timing and location of events is crucial for analyzing sports videos, especially in fast-paced sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which aims to detect both when and where key actions occur. To support this, we present the KOVO Volleyball Event Dataset, featuring 947 rally videos, and 5,935 events, annotated for both temporal and spatial localization. Our best model achieves a combined mAP of 85.46 across various temporal and spatial thresholds. Notably, we find that incorporating spatial predictions enhances temporal mAP by 5.89, underscoring the synergy between spatial and temporal analysis. To the best of our knowledge, this is the first work addressing this task, establishing a strong baseline for future research in spatial-temporal event spotting.
+  Understanding the precise timing and location of events is crucial for analyzing sports videos, especially in fast-paced sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which aims to detect both when and where key actions occur. To support this, we present the KOVO Volleyball Event Dataset, featuring 947 rally videos, and 5,935 events, annotated for both temporal and spatial localization. Our best model achieves a combined mAP of 85.46 across various temporal and spatial thresholds. Notably, we find that incorporating spatial predictions enhances temporal mAP by 5.89 points, underscoring the synergy between spatial and temporal analysis. To the best of our knowledge, this is the first work addressing this task, establishing a strong baseline for future research in spatial-temporal event spotting.
 }
 
 
@@ -42,324 +42,44 @@
 \label{sec:introduction}
 Video understanding has emerged as a cornerstone in computer vision, offering valuable insights into dynamic scenes for applications such as sports analytics, surveillance, and autonomous systems. Within this field, various tasks have been defined to interpret actions over time. \textit{Temporal Action Detection (TAD)} focuses on pinpointing time intervals where specific actions occur within untrimmed videos, while \textit{Temporal Action Segmentation (TAS)} aims to divide videos into continuous sequences of actions. Complementing these is the task of \textit{Action Spotting}, which identifies the precise frames that capture key events, requiring models to discern subtle temporal differences and visually similar frames \cite{spot22}.
 
-Recent advancements in action spotting, such as \textit{T-DEED} \cite{tdeed23} and \textit{E2E-Spot} \cite{spot22}, have demonstrated the ability of models to achieve frame-level precision in fast-paced events using deep learning architectures. However, most of these efforts focus solely on detecting events in domains like figure skating and diving, without capturing the unique challenges posed by team-based sports with rapid dynamics, such as volleyball.
+Recent advancements in action spotting, such as \textit{T-DEED} \cite{tdeed23} and \textit{E2E-Spot} \cite{spot22}, have demonstrated the ability of models to achieve frame-level precision in fast-paced events using deep learning architectures. Datasets like \textit{FigureSkating} \cite{figureskating} and \textit{FineDiving} \cite{finediving} have been pivotal in advancing action spotting, emphasizing the importance of precise temporal detection in sports with individual athletes. However, these datasets are tailored to specific sports and do not capture the complexity and rapid dynamics of team-based, high-speed sports, such as volleyball.
 
 In volleyball, rapid play transitions occur within specific areas of the court, making precise spatial localization as important as temporal accuracy. To address this, we introduce the new task of \textit{high-precision spatial-temporal event spotting}, designed to detect both the exact timing and spatial location of key events. Unlike conventional action spotting, this task provides richer insights into player positioning and movement patterns, crucial for analyzing volleyball gameplay.
 
 In other sports, datasets like \textit{SoccerNet-v2} \cite{soccernetv2} have pushed the boundaries of action spotting through rich temporal and spatial annotations, significantly advancing model capabilities. Yet, no equivalent dataset exists for volleyball, a sport characterized by its rapid exchanges and the need for precise localization of actions. To fill this gap, we introduce the \textit{KOVO Event Dataset}, comprising 947 rally videos, 890,797 frames, and 5,935 annotated key actions. This dataset offers granular annotations for both temporal and spatial event localization, making it a valuable resource for developing models that capture the intricacies of volleyball.
 
-Our contributions are threefold. First, we introduce the new task of high-precision spatial-temporal event spotting, specifically tailored for the dynamics of volleyball. Second, we present the \textit{KOVO Event Dataset}, the first of its kind to include detailed temporal and spatial annotations for volleyball rallies. Third, we propose a multi-task deep learning model that jointly predicts event timing and spatial positions, leveraging this dual focus to achieve improved performance. Notably, incorporating spatial predictions into our model enhances temporal mAP by 5.89 points. Our best model achieves a temporal mAP of 90.59, a spatial mAP of 77.94, and a combined mAP of 85.46, providing a strong baseline for this new task. To the best of our knowledge, this work is the first to explore high-precision spatial-temporal event spotting in volleyball, setting the stage for future research in this area. 
+Our contributions are threefold. First, we introduce the new task of high-precision spatial-temporal event spotting, specifically tailored for the dynamics of volleyball. Second, we present the \textit{KOVO Event Dataset}, the first of its kind to include detailed temporal and spatial annotations for volleyball rallies. Third, we propose a multi-task deep learning model that jointly predicts event timing and spatial positions, leveraging this dual focus to achieve improved performance. Notably, incorporating spatial predictions into our model enhances temporal mAP by 5.89 points. Our best model achieves a temporal mAP of 90.59, a spatial mAP of 77.94, and a combined mAP of 85.46, providing a strong baseline for this new task. To the best of our knowledge, this work is the first to explore high-precision spatial-temporal event spotting in volleyball, setting the stage for future research in this area.
+
 % The paper proceeds with a discussion of related work in Section 2, a detailed description of our approach in Section 3, the experimental setup in Section 4, results in Section 5, and conclusions in Section 6.
 
 
 
 \section{\uppercase{Related work}}
 
-We strongly encourage authors to use this document for the
-preparation of the camera-ready. Please follow the instructions
-closely in order to make the volume look as uniform as possible
-\cite{Moore99}.
+\subsection{Video Classification}
 
-Please remember that all the papers must be in English and without
-orthographic errors.
 
-Do not add any text to the headers (do not set running heads) and
-footers, not even page numbers, because text will be added
-electronically.
+\subsection{Temporal Action Localization}
 
-For a best viewing experience the used font must be Times New
-Roman, except on special occasions, such as program code
-\ref{subsubsec:program_code}.
 
+\subsection{Precise Action Spotting}
 
-\subsection{Manuscript Setup}
 
-The template is composed by a set of 7 files, in the
-following 2 groups:\\
-\noindent {\bf Group 1.} To format your paper you will need to copy
-into your working directory, but NOT edit, the following 4 files:
-\begin{verbatim}
-  - apalike.bst
-  - apalike.sty
-  - article.cls
-  - scitepress.sty
-\end{verbatim}
-
-\noindent {\bf Group 2.} Additionally, you may wish to copy and edit
-the following 3 example files:
-\begin{verbatim}
-  - example.bib
-  - example.tex
-  - scitepress.eps
-\end{verbatim}
-
-
-\subsection{Page Setup}
-
-The paper size must be set to A4 (210x297 mm). The document
-margins must be the following:
-
-\begin{itemize}
-    \item Top: 3,3 cm;
-    \item Bottom: 4,2 cm;
-    \item Left: 2,6 cm;
-    \item Right: 2,6 cm.
-\end{itemize}
-
-It is advisable to keep all the given values because any text or
-material outside the aforementioned margins will not be printed.
-
-
-\subsection{First Section}
-
-This section must be in one column.
-
-\subsubsection{Title and Subtitle}
-
-Use the command \textit{$\backslash$title} and follow the given structure in "example.tex". The title and subtitle must be with initial letters
-capitalized (titlecased). The separation between the title and subtitle is done by adding a colon ":" just before the subtitle beginning. In the title or subtitle, words like "is", "or", "then", etc. should not be capitalized unless they are the first word of the title or subtitle. No formulas or special characters of any form or language are allowed in the title or subtitle.
-
-\subsubsection{Authors and Affiliations}
-
-Use the command \textit{$\backslash$author} and follow the given structure in "example.tex". Please note that the name of each author must start with its first name.
-
-\subsubsection{Keywords}
-
-Use the command \textit{$\backslash$keywords} and follow the given structure in "example.tex". Each paper must have at least one keyword. If more than one is specified, please use a comma as a separator. The sentence must end with a period.
-
-\subsubsection{Abstract}
-
-Use the command \textit{$\backslash$abstract} and follow the given structure in "example.tex".
-Each paper must have an abstract up to 200 words. The sentence
-must end with a period.
-
-\subsection{Second Section}
-
-Files "example.tex" and "example.bib" show how to create a paper
-with a corresponding list of references.
-
-This section must be in two columns.
-
-Each column must be 7,5-centimeter wide with a column spacing
-of 0,8-centimeter.
-
-The section text must be set to 10-point.
-
-Section, subsection and sub-subsection first paragraph should not
-have the first line indent.
-
-To remove the paragraph indentation (only necessary for the
-sections), use the command \textit{$\backslash$noindent} before the
-paragraph first word.
-
-If you use other style files (.sty) you MUST include them in the
-final manuscript zip file.
-
-
-\subsubsection{Section Titles}
-
-The heading of a section title should be in all-capitals.
-
-Example: \textit{$\backslash$section\{FIRST TITLE\}}
-
-\subsubsection{Subsection Titles}
-
-The heading of a subsection title must be with initial letters
-capitalized (titlecased).
-
-Words like "is", "or", "then", etc. should not be capitalized unless
-they are the first word of the subsection title.
-
-Example: \textit{$\backslash$subsection\{First Subtitle\}}
-
-\subsubsection{Sub-Subsection Titles}
-
-The heading of a sub subsection title should be with initial letters
-capitalized (titlecased).
-
-Words like "is", "or", "then", etc should not be capitalized unless
-they are the first word of the sub subsection title.
-
-Example: \textit{$\backslash$subsubsection\{First Subsubtitle\}}
-
-\subsubsection{Tables}
-
-Tables must appear inside the designated margins or they may span
-the two columns.
-
-Tables in two columns must be positioned at the top or bottom of the
-page within the given margins. To span a table in two columns please add an asterisk (*) to the table \textit{begin} and \textit{end} command.
-
-Example: \textit{$\backslash$begin\{table*\}}
-
-\hspace*{1.5cm}\textit{$\backslash$end\{table*\}}\\
-
-Tables should be centered and should always have a caption
-positioned above it. The font size to use is 9-point. No bold or
-italic font style should be used.
-
-The final sentence of a caption should end with a period.
-
-\begin{table}[h]
-\caption{This caption has one line so it is
-centered.}\label{tab:example1} \centering
-\begin{tabular}{|c|c|}
-  \hline
-  Example column 1 & Example column 2 \\
-  \hline
-  Example text 1 & Example text 2 \\
-  \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[h]
-\vspace{-0.2cm}
-\caption{This caption has more than one line so it has to be
-justified.}\label{tab:example2} \centering
-\begin{tabular}{|c|c|}
-  \hline
-  Example column 1 & Example column 2 \\
-  \hline
-  Example text 1 & Example text 2 \\
-  \hline
-\end{tabular}
-\end{table}
-
-Please note that the word "Table" is spelled out.
-
-
-\subsubsection{Figures}
-
-Please produce your figures electronically, and integrate them into
-your document and zip file.
-
-Check that in line drawings, lines are not interrupted and have a
-constant width. Grids and details within the figures must be clearly
-readable and may not be written one on top of the other.
-
-Figure resolution should be at least 300 dpi.
-
-Figures must appear inside the designated margins or they may span
-the two columns.
-
-Figures in two columns must be positioned at the top or bottom of
-the page within the given margins. To span a figure in two columns please add an asterisk (*) to the figure \textit{begin} and \textit{end} command.
-
-Example: \textit{$\backslash$begin\{figure*\}}
-
-\hspace*{1.5cm}\textit{$\backslash$end\{figure*\}}
-
-Figures should be centered and should always have a caption
-positioned under it. The font size to use is 9-point. No bold or
-italic font style should be used.
-
-\begin{figure}[!h]
-  \centering
-   {\epsfig{file = SCITEPRESS.eps, width = 5.5cm}}
-  \caption{This caption has one line so it is centered.}
-  \label{fig:example1}
- \end{figure}
-
-\begin{figure}[!h]
-  \vspace{-0.2cm}
-  \centering
-   {\epsfig{file = SCITEPRESS.eps, width = 5.5cm}}
-  \caption{This caption has more than one line so it has to be justified.}
-  \label{fig:example2}
-\end{figure}
-
-The final sentence of a caption should end with a period.
-
-
-
-Please note that the word "Figure" is spelled out.
-
-\subsubsection{Equations}
-
-Equations should be placed on a separate line, numbered and
-centered.\\The numbers accorded to equations should appear in
-consecutive order inside each section or within the contribution,
-with the number enclosed in brackets and justified to the right,
-starting with the number 1.
-
-Example:
-
-\begin{equation}\label{eq1}
-    a=b+c
-\end{equation}
-
-\subsubsection{Algorithms and Listings}
-
-Algorithms and Listings captions should have font size 9-point, no bold or
-italic font style should be used and the final sentence of a caption should end with a period. The separator between the title of algorithms/listings and the name of the algorithm/listing must be a colon.
-Captions with one line should be centered and if it has more than one line it should be set to justified.
-
-\begin{algorithm}[!h]
- \caption{How to write algorithms.}
- \KwData{this text}
- \KwResult{how to write algorithm with \LaTeX2e }
- initialization\;
- \While{not at end of this document}{
-  read current\;
-  \eIf{understand}{
-   go to next section\;
-   current section becomes this one\;
-   }{
-   go back to the beginning of current section\;
-  }
- }
-\end{algorithm}
-
-
-\bigskip
-\subsubsection{Program Code}\label{subsubsec:program_code}
-
-Program listing or program commands in text should be set in
-typewriter form such as Courier New.
-
-Example of a Computer Program in Pascal:
-
-\begin{small}
-\begin{verbatim}
- Begin
-     Writeln('Hello World!!');
- End.
-\end{verbatim}
-\end{small}
-
-
-The text must be aligned to the left and in 9-point type.
-
-\subsubsection{Reference Text and Citations}
-
-References and citations should follow the APA (Author, date)
-System Convention (see the References section in the compiled
-manuscript). As example you may consider the citation
-\cite{Smith98}. Besides that, all references should be cited in the
-text. No numbers with or without brackets should be used to list the
-references.
-
-References should be set to 9-point. Citations should be 10-point
-font size.
-
-You may check the structure of "example.bib" before constructing the
-references.
-
-For more instructions about the references and citations usage
-please see the appropriate link at the conference website.
+\section{\uppercase{DATASET OVERVIEW}}
+\subsection{Data Content and Statistics}
+\subsection{Annotation Process}
+\subsection{Dataset Splits}
+\subsection{Evaluation Metrics}
 
 \section{\uppercase{PROPOSED METHOD}}
+\subsection{Problem Formulation}
+\subsection{Model Architecture}
+\subsubsection{Feature Extractor}
+\subsubsection{Temporal Event Detection}
+\subsubsection{Spatial Event Detection}
+\subsubsection{Multi-Task Learning}
+\subsubsection{Loss Function}
 
-For the mutual benefit and protection of Authors and
-Publishers, it is necessary that Authors provide formal written
-Consent to Publish and Transfer of Copyright before publication of
-the Book. The signed Consent ensures that the publisher has the
-Author's authorization to publish the Contribution.
-
-The copyright form is located on the authors' reserved area.
-
-The form should be completed and signed by one author on
-behalf of all the other authors.
 
 \section{\uppercase{EXPERIMENTS}}
 \label{sec:experiments}
