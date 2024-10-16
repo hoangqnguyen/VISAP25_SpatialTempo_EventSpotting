@@ -18,20 +18,35 @@
 
 % \title{Multi-task Architecture for Temporally and Spatially Precise Event Spotting in Volleyball Videos}
 % \title{Dual-Objective Deep Learning Architecture for Accurate Temporal and Spatial Event Detection in Volleyball}
-\title{MTSN: Multi-Task Temporal and Spatial Network for High-Precision Event Spotting in Volleyball Videos}
+\title{Multi-Task Temporal and Spatial Networks for High-Precision Event Spotting in Volleyball Videos}
 % \title{Multi-Task Temporal-Spatial Deep Learning for Accurate Event Localization in Volleyball Videos}
 % \title{Multi-Task Deep Framework for Accurate Temporal and Spatial Event Detection in Volleyball Videos}
 
-\author{\authorname{Hoang Quoc Nguyen\sup{1}\orcidAuthor{0009-0002-2004-9285}, Second Author Name\sup{1}\orcidAuthor{0000-0000-0000-0000} and Third Author Name\sup{2}\orcidAuthor{0000-0000-0000-0000}}
+\author{\authorname{Hoang Quoc Nguyen\sup{1}\sup{2}\orcidAuthor{0009-0002-2004-9285}, Second Author Name\sup{1}\orcidAuthor{0000-0000-0000-0000} and Third Author Name\sup{2}\orcidAuthor{0000-0000-0000-0000}}
 \affiliation{\sup{1}Korea Institute of Science and Technology, Seoul, Republic of Korea}
-\affiliation{\sup{2}Department of Computing, Main University, MySecondTown, MyCountry}
+\affiliation{\sup{2}University of Science and Technology, Daejeon, Republic of Korea}
 \email{523503, second\_author\}@kist.re.kr, third\_author@dc.mu.edu}
 }
 
-\keywords{Precise Event Spotting, Sports Video Understanding, Spatial Temporal Event Spotting, Deep Learning, Volleyball}
+\keywords{Temporally Precise Spotting, Video Understanding, Spatial Temporal Event Spotting, Volleyball, Sport, Deep Learning}
 
 % \abstract{The abstract should summarize the contents of the paper and should contain at least 70 and at most 200 words. The text must be set to 9-point font size.}
-\abstract{Precise event spotting is crucial in applications like sports analysis, where both temporal and spatial accuracy are key, especially in fast-paced sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting in volleyball videos, requiring detection of both when and where events occur. To address this, we develop a novel volleyball dataset annotated for temporal and spatial event localization and propose a multi-task deep learning model that jointly predicts event timing and spatial coordinates. Adding spatial prediction improves temporal event detection by ???\%, demonstrating the synergy between these tasks. To the best of our knowledge, this is the first work tackling this task, establishing a strong baseline and providing a foundation for future research in spatial-temporal event spotting.}
+% \abstract{
+%   Precise event spotting is crucial for sports video analysis, where understanding both the timing and location of key actions is essential, especially in fast-paced games like volleyball. We introduce a new task: high-precision spatial-temporal event spotting in volleyball videos, focusing on detecting both when and where key events occur. To address this challenge, we develop a novel volleyball dataset with annotations for temporal and spatial event localization. Our multi-task deep learning model jointly predicts event timing and spatial coordinates, and we find that adding a spatial predictor improves temporal detection by ???\%, highlighting the synergy between spatial and temporal tasks. To the best of our knowledge, this is the first work to tackle this task, setting a strong baseline for future research in spatial-temporal event spotting.
+% }
+
+% \abstract{
+%   Understanding both when and where events occur is crucial for analyzing sports videos, especially in fast-paced games like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, targeting the challenge of localizing key events both temporally and spatially. To achieve this, we present a novel annotated volleyball dataset and propose a multi-task deep learning model. By integrating spatial predictions, our approach improves temporal event detection by 10\%, showing a strong interaction between spatial and temporal tasks. This is the first known work to address this task, establishing a baseline for future studies.
+% }
+
+% \abstract{
+%   Understanding the precise timing and location of events is critical for analyzing sports videos, especially in high-speed sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which focuses on detecting both the timing and location of key actions. To address this, we present the KOVO Event Dataset, consisting of 947 volleyball rally videos, 890,797 frames, and 5,935 key actions, annotated for both temporal and spatial localization. Our multi-task deep learning model jointly predicts event times and locations, and we find that incorporating spatial predictions improves temporal accuracy by 10\%. To the best of our knowledge, this is the first work to address this task, setting a strong baseline for future research in spatial-temporal event spotting.
+% }
+
+\abstract{
+  Understanding the precise timing and location of events is crucial for analyzing sports videos, especially in fast-paced sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which aims to detect both when and where key actions occur. To support this, we present the KOVO Volleyball Event Dataset, featuring 947 rally videos, 890,797 frames, and 5,935 events, annotated for both temporal and spatial localization. Our best model achieves a temporal mAP of 90.59, a spatial mAP of 77.94, and a combined mAP of 85.46 across various temporal and spatial thresholds. Notably, we find that incorporating spatial predictions enhances mAP by 10\%, underscoring the synergy between spatial and temporal analysis. To the best of our knowledge, this is the first work addressing this task, establishing a strong baseline for future research in spatial-temporal event spotting.
+}
+
 
 
 \onecolumn \maketitle \normalsize \setcounter{footnote}{0} \vfill
@@ -389,5 +404,5 @@ If any, the appendix should appear directly after the
 references without numbering, and not on a new page. To do so please use the following command:
 % \textit{$\backslash$section*\{APPENDIX\}}
 
-\end{document}
+\end{document} 
 
