@@ -28,7 +28,7 @@
 \email{523503, second\_author\}@kist.re.kr, third\_author@dc.mu.edu}
 }
 
-\keywords{Temporally Precise Spotting, Video Understanding, Spatial Temporal Event Spotting, Volleyball, Sport, Deep Learning}
+\keywords{Precise Event Spotting, Video Understanding, Spatial Temporal Event Spotting, Deep Learning, Volleyball, Sport}
 
 \abstract{
   Understanding the precise timing and location of events is crucial for analyzing sports videos, especially in fast-paced sports like volleyball. We introduce a new task: high-precision spatial-temporal event spotting, which aims to detect both when and where key actions occur. To support this, we present the KOVO Volleyball Event Dataset, featuring 947 rally videos, and 5,935 events, annotated for both temporal and spatial localization. Our best model achieves a combined mAP of 85.46 across various temporal and spatial thresholds. Notably, we find that incorporating spatial predictions enhances temporal mAP by 5.89 points, underscoring the synergy between spatial and temporal analysis. To the best of our knowledge, this is the first work addressing this task, establishing a strong baseline for future research in spatial-temporal event spotting.
@@ -68,8 +68,6 @@ Our best model achieves a temporal mAP of 90.59, a spatial mAP of 77.94, and a c
 \subsection{Video Classification}
 Video classification aims to predict a single label for an entire video, in contrast to event spotting, which requires precise frame-level labeling. This distinction introduces unique challenges: video classification can leverage sparse frame sampling \cite{tsn}, whereas event spotting demands dense sampling to capture rapid changes in events. Additionally, classification models often employ global space-time pooling \cite{8578773} or temporal consensus \cite{zhou2018temporalrelationalreasoningvideos} to produce video-level predictions, while event spotting necessitates preserving high temporal resolution.
 
-Building on insights from E2E-Spot, which highlighted the benefits of end-to-end training without temporal pooling for frame-level precision, our method employs RegNet-Y \cite{radosavovic2020designingnetworkdesignspaces} with GSM \cite{9156729}. RegNet-Y, valued for its efficiency, combined with GSM’s adaptive temporal shifts, offers a powerful approach for spatial-temporal feature extraction. This setup is particularly suited for our high-precision event spotting task in volleyball, achieving both temporal accuracy and spatial precision efficiently.
-
 
 \subsection{Temporal Action Localization}
 Temporal Action Localization (TAL) aims to identify the time intervals when specific actions occur in untrimmed videos, making it ideal for longer actions that are not instantaneous. Unlike video classification, which assigns a single label to an entire video, TAL requires precise start and end times, making it more complex.
@@ -77,9 +75,16 @@ Temporal Action Localization (TAL) aims to identify the time intervals when spec
 TAL methods are typically categorized into two groups: two-stage \cite{9578330,10.1007/978-3-319-46487-9_47} and one-stage \cite{10203543,zhang2022actionformer} approaches. Two-stage models generate action proposals before classifying them, while one-stage models directly predict actions and their intervals in a streamlined process. Recent methods, like ActionFormer \cite{zhang2022actionformer} and TriDet \cite{tridet}, leverage advanced architectures, including transformers and feature pyramids, to improve temporal precision across varying action durations. Anchor-free approaches \cite{9171561} have further enhanced flexibility in predicting actions without relying on predefined time windows.
 
 TAL's development has been driven by extensive datasets and benchmarks such as ActivityNet \cite{ActivityNet}, EPIC-KITCHENS \cite{damen2018scalingegocentricvisionepickitchens}, and THUMOS Challenge \cite{Idrees_2017}, making it a well-explored field for understanding complex, prolonged actions in videos. However, it remains distinct from action spotting, which focuses on identifying brief, precise moments in fast-paced scenarios.
+\subsection{Precise Event Spotting (PES)}
 
+Precise Event Spotting (PES) aims to detect the exact frames of key events in untrimmed videos, making it ideal for fast, critical moments in sports. Unlike Temporal Action Localization (TAL), which spans broader time intervals, PES requires frame-level accuracy, crucial for detailed sports analysis where slight timing shifts can alter game interpretations.
 
-\subsection{Precise Action Spotting}
+Datasets like \textit{FigureSkating} \cite{figureskating} and \textit{FineDiving} \cite{finediving} have advanced PES with frame-level annotations, but focus on simpler, individual sports. Recent methods, such as \textit{T-DEED} \cite{tdeed23} and \textit{E2E-Spot} \cite{spot22}, enhance precision by refining temporal representations and avoiding pooling, but lack spatial context needed for team sports.
+
+In volleyball, spatial localization is as critical as timing. Understanding event locations is key to analyzing player movements and strategies. Our work addresses this by introducing a new task and dataset for high-precision spatial-temporal event spotting in volleyball, capturing both event timing and location.
+
+Inspired by \textit{E2E-Spot} \cite{spot22}, our approach uses RegNet-Y \cite{radosavovic2020designingnetworkdesignspaces} with GSM \cite{9156729} for adaptive temporal shifts. This combination balances efficiency and precision, making it ideal for capturing complex spatial-temporal dynamics in volleyball.
+
 
 
 \section{\uppercase{DATASET OVERVIEW}}
